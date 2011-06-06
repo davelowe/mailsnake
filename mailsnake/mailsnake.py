@@ -1,5 +1,6 @@
 import urllib2
 import json
+from utils import recursive_urlencode
 
 class MailSnake(object):
     dc = 'us1'
@@ -19,9 +20,11 @@ class MailSnake(object):
 
     def call(self, method, params = {}):
         url = self.base_api_url % {'dc':self.dc, 'format':'json', 'method':method, 'apikey':self.apikey}
+        params.update(self.default_params)
+        post_data = recursive_urlencode(params)
         
         headers = {'Content-Type': 'application/json'}
-        request = urllib2.Request(url, {}, headers)
+        request = urllib2.Request(url, post_data, headers)
         response = urllib2.urlopen(request)
 
         return json.loads(response.read())
