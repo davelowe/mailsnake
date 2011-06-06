@@ -38,4 +38,4 @@ class MailSnake(object):
         return get.__get__(self)
 
 class MailSnakeSTS(MailSnake):
-    base_api_url_template = 'https://%(dc)s.sts.mailchimp.com/1.0/%(method)s%(format)s/'
+    base_api_url = 'https://%(dc)s.sts.mailchimp.com/1.0/%(method)s.%(format)s'
