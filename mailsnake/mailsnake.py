@@ -24,7 +24,7 @@ class MailSnake(object):
         post_data = recursive_urlencode(params)
         
         headers = {'Content-Type': 'application/json'}
-        request = urllib2.Request(url, post_data, headers)
+        request = urllib2.Request(url='%s?%s' % (url, post_data), headers=headers)
         response = urllib2.urlopen(request)
 
         return json.loads(response.read())

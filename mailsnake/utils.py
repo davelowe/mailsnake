@@ -10,7 +10,7 @@ def recursive_urlencode(d):
             else:
                 new_pair = None
                 if base:
-                    new_pair = "%s[%s]=%s" % (base, urllib.quote(unicode(key)), urllib.quote(unicode(value)))
+                    new_pair = "%s%%5B%s%%5D=%s" % (base, urllib.quote(unicode(key)), urllib.quote(unicode(value)))
                 else:
                     new_pair = "%s=%s" % (urllib.quote(unicode(key)), urllib.quote(unicode(value)))
                 pairs.append(new_pair)
