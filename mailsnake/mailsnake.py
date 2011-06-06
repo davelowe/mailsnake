@@ -18,12 +18,10 @@ class MailSnake(object):
             self.dc = self.apikey.split('-')[1]
 
     def call(self, method, params = {}):
-        url = self.base_api_url % {'dc':self.dc, 'format':'json', 'method':method}
-        params.update(self.default_params)
-
-        post_data = json.dumps(params)
+        url = self.base_api_url % {'dc':self.dc, 'format':'json', 'method':method, 'apikey':self.apikey}
+        
         headers = {'Content-Type': 'application/json'}
-        request = urllib2.Request(url, post_data, headers)
+        request = urllib2.Request(url, {}, headers)
         response = urllib2.urlopen(request)
 
         return json.loads(response.read())
@@ -38,4 +36,4 @@ class MailSnake(object):
         return get.__get__(self)
 
 class MailSnakeSTS(MailSnake):
-    base_api_url = 'https://%(dc)s.sts.mailchimp.com/1.0/%(method)s.%(format)s'
+    base_api_url = 'https://%(dc)s.sts.mailchimp.com/1.0/%(method)s.%(format)s?apikey=%(apikey)s'
